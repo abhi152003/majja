@@ -11,7 +11,7 @@ import SuggestedAccounts from './SuggestedAccounts';
 import Footer from './Footer';
 
 const Sidebar = () => {
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const userProfile = false;
 
@@ -20,10 +20,10 @@ const Sidebar = () => {
   return (
     <div>
       <div
-        className='block xl:hidden m-2 ml-4 mt-3 text-xl'
+        className='block m-2 ml-4 mt-3 text-xl'
         onClick={() => setShowSidebar((prev) => !prev)}
       >
-        {showSidebar ? <ImCancelCircle /> : <AiOutlineMenu />}
+        {showSidebar ? <ImCancelCircle /> :  <AiOutlineMenu />}
       </div>
       {showSidebar && (
         <div className='xl:w-400 w-20 flex flex-col 
@@ -44,7 +44,7 @@ const Sidebar = () => {
           </div>
           <Discover />
           <SuggestedAccounts />
-          <Footer />
+          
         </div>  
       )}
     </div>

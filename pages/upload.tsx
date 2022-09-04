@@ -13,7 +13,9 @@ import { BASE_URL } from '../utils';
 
 const Upload = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [topic, setTopic] = useState<String>(topics[0].name);
   const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>();
+  const [imageAsset, setImageAsset] = useState<SanityAssetDocument | undefined>();
   const [wrongFileType, setWrongFileType] = useState(false);
   const [caption, setCaption] = useState('');
   const [category, setCategory] = useState(topics[0].name);
@@ -24,7 +26,7 @@ const Upload = () => {
 
   const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0];
-    const fileTypes = ['video/mp4', 'video/webm', 'video/ogg'];
+    const fileTypes = ['video/mp4', 'video/webm', 'video/ogg', 'image/png', 'image/jpg', 'image/jpeg'];
 
     if(fileTypes.includes(selectedFile.type)) {
         client.assets.upload('file', selectedFile, {
@@ -55,6 +57,13 @@ const Upload = () => {
                     _ref: videoAsset?._id
                 }
             },
+            image: {
+                _type: 'file',
+                asset: {
+                    _type :'reference',
+                    _ref: imageAsset?._id
+                }
+            },
             userId : userProfile?._id,
             postedBy: {
                 _type: 'postedBy',
@@ -68,6 +77,13 @@ const Upload = () => {
         router.push('/');
     }
   }
+
+  const handleDiscard = () => {
+    setSavingPost(false);
+    setVideoAsset(undefined);
+    setCaption('');
+    setTopic('');
+  };
 
   return (
     <div className='flex w-full h-full absolute left-0 top-[60px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center'>
@@ -165,7 +181,7 @@ const Upload = () => {
                 </select>
                 <div className='flex gap-6 mt-10'>
                     <button
-                        onClick={() => {}}
+                        onClick={handleDiscard}
                         type='button'
                         className='border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
                     >
