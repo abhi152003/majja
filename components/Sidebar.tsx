@@ -20,7 +20,7 @@ const Sidebar = () => {
   return (
     <div>
       <div
-        className='block m-2 ml-4 mt-3 text-xl'
+        className='block m-2 ml-4 mt-3 text-xl cursor-pointer'
         onClick={() => setShowSidebar((prev) => !prev)}
       >
         {showSidebar ? <ImCancelCircle /> :  <AiOutlineMenu />}
